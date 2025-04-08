@@ -11,7 +11,8 @@ const Shops = () => {
 
     // Fetch shop data from backend
     useEffect(() => {
-        fetch("http://localhost:5000/api/shops")
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/shops`)
+
             .then((response) => response.json())
             .then((data) => setShops(data))
             .catch((error) => console.error("Error fetching shops:", error));
@@ -20,7 +21,8 @@ const Shops = () => {
     // Handle when a shop is clicked
     const handleShopClick = async (shopName) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/get-shop?shopName=${shopName}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/get-shop?shopName=${shopName}`);
+
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const data = await response.json();
@@ -41,11 +43,13 @@ const Shops = () => {
     // Handle password submission (Login)
     const handleLogin = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/validate-shop", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/validate-shop`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ shopName: selectedShop.shopName, password }),
             });
+            
+         
 
             const data = await response.json();
             if (data.success) {
@@ -62,11 +66,13 @@ const Shops = () => {
     // Handle setting a new password
     const handleSetPassword = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/set-password", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/set-password`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ shopName: selectedShop.shopName, password: newPassword }),
             });
+            
+           
 
             const data = await response.json();
             alert(data.message);

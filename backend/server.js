@@ -10,10 +10,15 @@ app.use((err, req, res, next) => {
 
 app.use(
     cors({
-        origin: ["http://localhost:5173", "http://localhost:3000"],
-        credentials: true,
+      origin: [
+        "http://localhost:5173",                        // Vite dev server
+        "http://localhost:3000",                        // CRA dev server
+        "https://radiant-meerkat-5f7312.netlify.app"      // ✅ your actual Netlify domain
+      ],
+      credentials: true,
     })
-);
+  );
+  
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

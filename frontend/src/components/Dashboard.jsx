@@ -19,7 +19,8 @@ const Dashboard = () => {
     // Function to fetch user details dynamically
     const fetchUserDetails = async (userID) => {
         try {
-            const response = await fetch(`http://localhost:5000/user-details/${userID}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user-details/${userID}`);
+
             const data = await response.json();
             if (response.ok) {
                 setUser(data);
@@ -44,7 +45,8 @@ const Dashboard = () => {
     }, [user]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/shops")
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/shops`)
+
             .then(res => res.json())
             .then(data => setShops(data))
             .catch(error => console.error("Error fetching shops:", error));
@@ -72,7 +74,8 @@ const Dashboard = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/report?userID=${user.userID}&month=${month}&year=${year}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/report?userID=${user.userID}&month=${month}&year=${year}`);
+
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

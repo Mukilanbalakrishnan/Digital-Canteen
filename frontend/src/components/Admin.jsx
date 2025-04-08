@@ -12,7 +12,7 @@ const Admin = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch("http://localhost:5000/user-details"); // Updated API endpoint
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user-details`); // Updated API endpoint
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -31,13 +31,14 @@ const Admin = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/update-coins", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/update-coins`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userID, amount: isAdding ? amount : -amount }) // Add or remove coins
             });
-
+        
             const data = await response.json();
+        
             if (response.ok) {
                 alert("Coins updated!");
                 await fetchUsers(); // Refresh data after update
@@ -48,6 +49,7 @@ const Admin = () => {
         } catch (error) {
             console.error("Error updating coins:", error);
         }
+        
     };
 
 
@@ -58,11 +60,12 @@ const Admin = () => {
         const newShop = { shopName, shopOwnerName };
 
         try {
-            const response = await fetch("http://localhost:5000/api/add-shop", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/add-shop`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newShop),
             });
+        
 
             const data = await response.json();
             console.log("Response:", data);

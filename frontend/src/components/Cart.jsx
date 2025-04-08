@@ -40,7 +40,7 @@ const Cart = () => {
         console.log("Cart before sending to API:", cart);
 
         try {
-            const response = await fetch("http://localhost:5000/api/buy", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/buy`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -49,6 +49,7 @@ const Cart = () => {
                     cart, // Send actual cart data
                 }),
             });
+        
 
             const data = await response.json();
 

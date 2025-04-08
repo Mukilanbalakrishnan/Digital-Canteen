@@ -10,7 +10,8 @@ const Products = ({ shopName }) => {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/products/${shopName}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products/${shopName}`);
+
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }

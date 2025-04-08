@@ -18,7 +18,8 @@ const ShopPage = () => {
 
     const fetchShopData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/shop-details?shopName=${shopName}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/shop-details?shopName=${shopName}`);
+
             const data = await response.json();
             setShopData(data);
         } catch (error) {
@@ -35,11 +36,13 @@ const ShopPage = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/add-product", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/add-product`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ shopName, productName, quantity, price }),
             });
+            
+            
 
             const data = await response.json();
             setMessage(data.message);
@@ -58,7 +61,8 @@ const ShopPage = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/${shopName}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/${shopName}`);
+
             const data = await response.json();
             setOrders(data);
         } catch (error) {
@@ -84,7 +88,8 @@ const ShopPage = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/report?shopName=${shopName}&month=${month}&year=${year}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/report?shopName=${shopName}&month=${month}&year=${year}`);
+
             const data = await response.json();
             setFilteredOrders(data);
         } catch (error) {
@@ -94,7 +99,7 @@ const ShopPage = () => {
 
     const handleDeliver = async (orderId) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/deliver/${orderId}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/deliver/${orderId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" }
             });
