@@ -38,6 +38,12 @@ const Cart = () => {
 
         // ✅ Log the cart data before sending
         console.log("Cart before sending to API:", cart);
+        console.log("Sending data to API:", {
+            username: user?.username,
+            shopName: localStorage.getItem("shopName"),
+            cart,
+        });
+        
 
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/buy`, {

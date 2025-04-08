@@ -492,10 +492,11 @@ app.get("/api/products/:shop", async (req, res) => {
 
 
 
+
 app.post("/api/buy", async (req, res) => {
     try {
         const { username, shopName, cart } = req.body;
-
+        console.log("Received from client:", req.body);
         if (!username || !shopName || !cart || cart.length === 0) {
             return res.status(400).json({ message: "Invalid request data" });
         }
