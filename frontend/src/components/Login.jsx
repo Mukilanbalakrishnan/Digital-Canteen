@@ -45,7 +45,7 @@
 //                 headers: { "Content-Type": "application/json" },
 //                 body: JSON.stringify({ userID, password }),
 //             });
-            
+
 
 //             const data = await response.json();
 //             console.log("Full API Response:", data);
@@ -305,22 +305,23 @@ const Login = () => {
                 {/* Login Step */}
                 {step === 'enterPassword' && (
                     <form onSubmit={handleLogin} className="space-y-4 mt-7">
-                        <div className="relative">
-                            <label className="block text-indigo-800 text-2xl font-semibold">Password:</label>
+                        <div className="relative w-full mt-5">
+                            <label className="block mb-1 text-indigo-800 font-semibold text-xl">Password:</label>
                             <input
-                                type={showLoginPassword ? "text" : "password"}
-                                className="w-full p-2 rounded mt-2 outline outline-indigo-800 text-indigo-800 font-semibold pr-10"
+                                type={showPassword ? "text" : "password"}
+                                className="w-full p-2 rounded outline outline-indigo-800 text-indigo-700 pr-10"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                             <span
-                                onClick={() => setShowLoginPassword(!showLoginPassword)}
-                                className="absolute top-[54px] right-3 cursor-pointer text-indigo-800"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute top-[42px] right-3 cursor-pointer text-indigo-800"
                             >
-                                {showLoginPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                showPassword ? <EyeOff size={20} /> 
                             </span>
                         </div>
+
                         <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded">
                             Login
                         </button>
