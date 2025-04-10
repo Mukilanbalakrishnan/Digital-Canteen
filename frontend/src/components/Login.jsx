@@ -188,6 +188,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Eye, EyeOff } from "lucide-react";
+import React, { useState } from "react";
+
 
 const Login = () => {
     const [userID, setUserID] = useState('');
@@ -201,6 +203,8 @@ const Login = () => {
     const [showLoginPassword, setShowLoginPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -318,7 +322,7 @@ const Login = () => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute top-[42px] right-3 cursor-pointer text-indigo-800"
                             >
-                                showPassword ? <EyeOff size={20} /> 
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
                         </div>
 
