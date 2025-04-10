@@ -9,6 +9,7 @@ const Login = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
     const [step, setStep] = useState('enterUserID'); // Steps: enterUserID, enterPassword, setNewPassword
+    const [showPassword, setShowPassword] = useState(false);
     const [hasPassword, setHasPassword] = useState(false);
     const [userDetails, setUserDetails] = useState(null);
 
@@ -121,16 +122,22 @@ const Login = () => {
 
                 {step === 'enterPassword' && (
                     <form onSubmit={handleLogin} className="space-y-4 mt-7">
-                        <div>
-                            <label className="block text-indigo-800 text-2xl font-semibold">Password:</label>
-                            <input
-                                type="password"
-                                className="w-full p-2 rounded mt-2 outline outline-indigo-800 text-indigo-800 font-semibold"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
+                    <div className="relative">
+                        <label className="block text-indigo-800 text-2xl font-semibold">Password:</label>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="w-full p-2 rounded mt-2 outline outline-indigo-800 text-indigo-800 font-semibold pr-10"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-12 cursor-pointer text-indigo-800"
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </span>
+                    </div>
                         <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded">
                             Login
                         </button>
