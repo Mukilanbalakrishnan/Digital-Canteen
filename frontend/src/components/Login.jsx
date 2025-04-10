@@ -188,8 +188,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Eye, EyeOff } from "lucide-react";
-import React, { useState } from "react";
-
 
 const Login = () => {
     const [userID, setUserID] = useState('');
@@ -200,14 +198,13 @@ const Login = () => {
     const [step, setStep] = useState('enterUserID');
     const [hasPassword, setHasPassword] = useState(false);
 
-    const [showLoginPassword, setShowLoginPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-
 
     const navigate = useNavigate();
 
+    // Check if user has a password set
     const handleUserIDSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
@@ -227,8 +224,10 @@ const Login = () => {
         }
     };
 
+    // Handle login
     const handleLogin = async (event) => {
         event.preventDefault();
+        setMessage('');
 
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/login-user-details`, {
@@ -260,9 +259,15 @@ const Login = () => {
         }
     };
 
+    // Set new password
     const handleSetPassword = async (e) => {
         e.preventDefault();
         setMessage('');
+
+        if (newPassword !== confirmPassword) {
+            setMessage("Passwords do not match!");
+            return;
+        }
 
         try {
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/set-user-password`, {
@@ -287,7 +292,7 @@ const Login = () => {
                         step === 'enterPassword' ? 'Login' : 'Set New Password'}
                 </h2>
 
-                {/* Enter User ID */}
+                {/* Step 1: Enter User ID */}
                 {step === 'enterUserID' && (
                     <form onSubmit={handleUserIDSubmit}>
                         <div className='mt-6 space-x-5'>
@@ -306,7 +311,7 @@ const Login = () => {
                     </form>
                 )}
 
-                {/* Login Step */}
+                {/* Step 2: Login */}
                 {step === 'enterPassword' && (
                     <form onSubmit={handleLogin} className="space-y-4 mt-7">
                         <div className="relative w-full mt-5">
@@ -332,7 +337,7 @@ const Login = () => {
                     </form>
                 )}
 
-                {/* Set Password Step */}
+                {/* Step 3: Set New Password */}
                 {step === 'setNewPassword' && (
                     <form onSubmit={handleSetPassword} className="space-y-4 mt-5">
 
@@ -378,6 +383,7 @@ const Login = () => {
                     </form>
                 )}
 
+                {/* Message */}
                 {message && <p className="mt-4 text-center text-red-500">{message}</p>}
             </div>
         </div>
@@ -385,4 +391,5 @@ const Login = () => {
 };
 
 export default Login;
+
 
