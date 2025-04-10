@@ -204,7 +204,6 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    // Check if user has a password set
     const handleUserIDSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
@@ -224,10 +223,8 @@ const Login = () => {
         }
     };
 
-    // Handle login
     const handleLogin = async (event) => {
         event.preventDefault();
-        setMessage('');
 
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/login-user-details`, {
@@ -237,6 +234,7 @@ const Login = () => {
             });
 
             const data = await response.json();
+            console.log("Full API Response:", data);
 
             if (data.username) {
                 localStorage.setItem(
@@ -248,26 +246,18 @@ const Login = () => {
                         coins: data.coins
                     })
                 );
-
                 navigate("/dashboard");
             } else {
-                setMessage("Login failed: Invalid credentials");
+                console.error("Error: User not found in response");
             }
         } catch (error) {
-            console.error("Login Error:", error);
-            setMessage("Login failed. Please try again.");
+            console.error("Login Fetch Error:", error);
         }
     };
 
-    // Set new password
     const handleSetPassword = async (e) => {
         e.preventDefault();
         setMessage('');
-
-        if (newPassword !== confirmPassword) {
-            setMessage("Passwords do not match!");
-            return;
-        }
 
         try {
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/set-user-password`, {
@@ -292,7 +282,6 @@ const Login = () => {
                         step === 'enterPassword' ? 'Login' : 'Set New Password'}
                 </h2>
 
-                {/* Step 1: Enter User ID */}
                 {step === 'enterUserID' && (
                     <form onSubmit={handleUserIDSubmit}>
                         <div className='mt-6 space-x-5'>
@@ -311,37 +300,32 @@ const Login = () => {
                     </form>
                 )}
 
-                {/* Step 2: Login */}
                 {step === 'enterPassword' && (
                     <form onSubmit={handleLogin} className="space-y-4 mt-7">
-                        <div className="relative w-full mt-5">
-                            <label className="block mb-1 text-indigo-800 font-semibold text-xl">Password:</label>
+                        <div className="relative">
+                            <label className="block text-indigo-800 text-2xl font-semibold">Password:</label>
                             <input
                                 type={showPassword ? "text" : "password"}
-                                className="w-full p-2 rounded outline outline-indigo-800 text-indigo-700 pr-10"
+                                className="w-full p-2 rounded mt-2 outline outline-indigo-800 text-indigo-800 font-semibold pr-10"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                             <span
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute top-[42px] right-3 cursor-pointer text-indigo-800"
+                                className="absolute right-3 top-12 cursor-pointer text-indigo-800"
                             >
                                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
                         </div>
-
                         <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded">
                             Login
                         </button>
                     </form>
                 )}
 
-                {/* Step 3: Set New Password */}
                 {step === 'setNewPassword' && (
                     <form onSubmit={handleSetPassword} className="space-y-4 mt-5">
-
-                        {/* New Password */}
                         <div className="relative">
                             <label className="block text-indigo-800 font-semibold text-1xl">New Password:</label>
                             <input
@@ -353,13 +337,12 @@ const Login = () => {
                             />
                             <span
                                 onClick={() => setShowNewPassword(!showNewPassword)}
-                                className="absolute top-[54px] right-3 cursor-pointer text-indigo-800"
+                                className="absolute right-3 top-12 cursor-pointer text-indigo-800"
                             >
                                 {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
                         </div>
 
-                        {/* Confirm Password */}
                         <div className="relative">
                             <label className="block text-indigo-800 font-semibold text-1xl">Confirm Password:</label>
                             <input
@@ -371,7 +354,7 @@ const Login = () => {
                             />
                             <span
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute top-[54px] right-3 cursor-pointer text-indigo-800"
+                                className="absolute right-3 top-12 cursor-pointer text-indigo-800"
                             >
                                 {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
@@ -383,7 +366,6 @@ const Login = () => {
                     </form>
                 )}
 
-                {/* Message */}
                 {message && <p className="mt-4 text-center text-red-500">{message}</p>}
             </div>
         </div>
@@ -391,5 +373,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
