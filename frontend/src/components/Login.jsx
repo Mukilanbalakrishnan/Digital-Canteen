@@ -197,6 +197,7 @@ const Login = () => {
     const [message, setMessage] = useState('');
     const [step, setStep] = useState('enterUserID');
     const [hasPassword, setHasPassword] = useState(false);
+
     const [showLoginPassword, setShowLoginPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -301,7 +302,7 @@ const Login = () => {
                     </form>
                 )}
 
-                {/* Login */}
+                {/* Login Step */}
                 {step === 'enterPassword' && (
                     <form onSubmit={handleLogin} className="space-y-4 mt-7">
                         <div className="relative">
@@ -315,7 +316,7 @@ const Login = () => {
                             />
                             <span
                                 onClick={() => setShowLoginPassword(!showLoginPassword)}
-                                className="absolute right-3 top-12 cursor-pointer text-indigo-800"
+                                className="absolute top-[54px] right-3 cursor-pointer text-indigo-800"
                             >
                                 {showLoginPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
@@ -326,9 +327,11 @@ const Login = () => {
                     </form>
                 )}
 
-                {/* Set New Password */}
+                {/* Set Password Step */}
                 {step === 'setNewPassword' && (
                     <form onSubmit={handleSetPassword} className="space-y-4 mt-5">
+
+                        {/* New Password */}
                         <div className="relative">
                             <label className="block text-indigo-800 font-semibold text-1xl">New Password:</label>
                             <input
@@ -340,12 +343,13 @@ const Login = () => {
                             />
                             <span
                                 onClick={() => setShowNewPassword(!showNewPassword)}
-                                className="absolute right-3 top-12 cursor-pointer text-indigo-800"
+                                className="absolute top-[54px] right-3 cursor-pointer text-indigo-800"
                             >
                                 {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
                         </div>
 
+                        {/* Confirm Password */}
                         <div className="relative">
                             <label className="block text-indigo-800 font-semibold text-1xl">Confirm Password:</label>
                             <input
@@ -357,7 +361,7 @@ const Login = () => {
                             />
                             <span
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-3 top-12 cursor-pointer text-indigo-800"
+                                className="absolute top-[54px] right-3 cursor-pointer text-indigo-800"
                             >
                                 {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </span>
@@ -376,3 +380,4 @@ const Login = () => {
 };
 
 export default Login;
+
