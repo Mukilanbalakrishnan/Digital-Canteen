@@ -311,12 +311,12 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
-                            <span
+                            {/* <span
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-3 top-12 cursor-pointer text-indigo-800"
                             >
                                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                            </span>
+                            </span> */}
                         </div>
                         <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded">
                             Login
