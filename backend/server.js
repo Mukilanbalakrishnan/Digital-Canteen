@@ -678,10 +678,10 @@ app.get("/api/delivered-orders/:shopName", async (req, res) => {
 
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
+// <<<<<<< HEAD
+// =======
 //         if (isNaN(orderId)) {
 //             return res.status(400).json({ success: false, message: "Invalid order ID" });
 //         }
@@ -698,9 +698,9 @@ app.get("/api/delivered-orders/:shopName", async (req, res) => {
 //         res.status(500).json({ success: false, message: "Internal server error" });
 //     }
 // });
->>>>>>> 55f7054affcfd8e48fccc9e695cc771ab03f80f3
->>>>>>> b45d4a346eb5b8675b57e8dc338988a792b4a4cf
->>>>>>> ac2e120fef73ccb767ca2c84915c03c9048c5070
+// >>>>>>> 55f7054affcfd8e48fccc9e695cc771ab03f80f3
+// >>>>>>> b45d4a346eb5b8675b57e8dc338988a792b4a4cf
+// >>>>>>> ac2e120fef73ccb767ca2c84915c03c9048c5070
 
 
 
