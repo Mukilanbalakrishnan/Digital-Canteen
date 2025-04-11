@@ -585,17 +585,42 @@ app.post("/api/buy", async (req, res) => {
 app.post("/api/orders", async (req, res) => {
     try {
         const { shopName, productName, username } = req.body;
-        const orderId = Math.floor(1000 + Math.random() * 9000); // Generate unique 4-digit ID
+        const orderId = Math.floor(1000 + Math.random() * 9000); // Generate order ID
 
+        // ✅ 1. Find product by shop and name
+        const product = await ShopProduct.findOne({ shopName, productName });
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        // ✅ 2. Check stock
+        if (product.quantity < 1) {
+            return res.status(400).json({ success: false, message: "Out of stock" });
+        }
+
+        // ✅ 3. Atomically update stock (avoid race conditions)
+        const updated = await ShopProduct.findOneAndUpdate(
+            { _id: product._id, quantity: { $gte: 1 } },
+            { $inc: { quantity: -1 } },
+            { new: true }
+        );
+
+        if (!updated) {
+            return res.status(409).json({ success: false, message: "Stock was taken by someone else just now" });
+        }
+
+        // ✅ 4. Save order
         const newOrder = new OrderDetails({ shopName, productName, username, orderId });
         await newOrder.save();
 
-        res.json({ success: true, message: "Order placed!", orderId });
+        res.json({ success: true, message: "✅ Order placed successfully!", orderId });
     } catch (error) {
-        console.error(error);
+        console.error("Error placing order:", error);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 });
+
 
 // API to fetch orders for a shop (From OrderDetails)
 app.get("/api/orders/:shopName", async (req, res) => {
@@ -635,6 +660,8 @@ app.put("/api/orders/deliver/:orderId", async (req, res) => {
 });
 
 
+<<<<<<< HEAD
+=======
 
 app.get("/api/delivered-orders/:shopName", async (req, res) => {
     try {
@@ -652,6 +679,26 @@ app.get("/api/delivered-orders/:shopName", async (req, res) => {
 
 
 
+<<<<<<< HEAD
+=======
+//         if (isNaN(orderId)) {
+//             return res.status(400).json({ success: false, message: "Invalid order ID" });
+//         }
+
+//         const deletedOrder = await OrderDetails.findOneAndDelete({ orderId });
+
+//         if (!deletedOrder) {
+//             return res.status(404).json({ success: false, message: "Order not found" });
+//         }
+
+//         res.json({ success: true, message: "Order cancelled!" });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false, message: "Internal server error" });
+//     }
+// });
+>>>>>>> 55f7054affcfd8e48fccc9e695cc771ab03f80f3
+>>>>>>> b45d4a346eb5b8675b57e8dc338988a792b4a4cf
 
 
 
