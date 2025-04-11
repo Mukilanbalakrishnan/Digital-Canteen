@@ -635,6 +635,22 @@ app.put("/api/orders/deliver/:orderId", async (req, res) => {
 });
 
 
+
+app.get("/api/delivered-orders/:shopName", async (req, res) => {
+    try {
+        const orders = await OrderDetails.find({
+            shopName: req.params.shopName,
+            delivered: true
+        }).sort({ timestamp: -1 });
+
+        res.json(orders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+});
+
+
 // app.delete("/api/orders/cancel/:orderId", async (req, res) => {
 //     try {
 //         const orderId = Number(req.params.orderId); // ✅ Convert orderId to a number
