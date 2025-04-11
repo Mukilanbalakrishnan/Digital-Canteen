@@ -117,7 +117,7 @@ const Login = () => {
                                 required
                             />
                         </div>
-                        <button type="submit" className="w-52 ml-16 bg-indigo-500 text-white p-2 rounded mt-10">
+                        <button type="submit" className="w-52 ml-16 bg-indigo-500 text-white p-2 rounded mt-10 hover:bg-indigo-800">
                             Next
                         </button>
                     </form>
@@ -138,13 +138,13 @@ const Login = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword((prev) => !prev)}
-                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm text-indigo-600"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm text-indigo-600 hover:bg-indigo-800"
                                 >
                                     {showPassword ? "Hide" : "Show"}
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded">
+                        <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded hover:bg-indigo-800">
                             Login
                         </button>
                     </form>
@@ -191,7 +191,7 @@ const Login = () => {
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded">
+                        <button type="submit" className="w-full bg-indigo-500 text-white p-2 rounded hover:bg-indigo-800">
                             Save Password
                         </button>
                     </form>
