@@ -122,7 +122,7 @@ const Dashboard = () => {
                 </Link>
 
                 {/* 📌 Report Button */}
-                <button className="bg-indigo-700 text-white p-3 rounded" onClick={handleGenerateReport}>
+                <button className="bg-indigo-700 text-white p-3 rounded mp-5" onClick={handleGenerateReport}>
                     Generate Report 📊
                 </button>
             </div>
