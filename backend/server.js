@@ -660,6 +660,45 @@ app.put("/api/orders/deliver/:orderId", async (req, res) => {
 });
 
 
+<<<<<<< HEAD
+=======
+
+app.get("/api/delivered-orders/:shopName", async (req, res) => {
+    try {
+        const orders = await OrderDetails.find({
+            shopName: req.params.shopName,
+            delivered: true
+        }).sort({ timestamp: -1 });
+
+        res.json(orders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+});
+
+
+// app.delete("/api/orders/cancel/:orderId", async (req, res) => {
+//     try {
+//         const orderId = Number(req.params.orderId); // ✅ Convert orderId to a number
+
+//         if (isNaN(orderId)) {
+//             return res.status(400).json({ success: false, message: "Invalid order ID" });
+//         }
+
+//         const deletedOrder = await OrderDetails.findOneAndDelete({ orderId });
+
+//         if (!deletedOrder) {
+//             return res.status(404).json({ success: false, message: "Order not found" });
+//         }
+
+//         res.json({ success: true, message: "Order cancelled!" });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false, message: "Internal server error" });
+//     }
+// });
+>>>>>>> 55f7054affcfd8e48fccc9e695cc771ab03f80f3
 
 
 

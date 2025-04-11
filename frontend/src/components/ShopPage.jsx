@@ -114,7 +114,25 @@ const ShopPage = () => {
             console.error("Error delivering order:", error);
         }
     };
+
+    const ReportSection = ({ shopName }) => {
+        const [filteredOrders, setFilteredOrders] = useState([]);
     
+        useEffect(() => {
+            const fetchDeliveredOrders = async () => {
+                try {
+                    const response = await axios.get(`/api/delivered-orders/${shopName}`);
+                    setFilteredOrders(response.data);
+                } catch (error) {
+                    console.error("Failed to fetch delivered orders:", error);
+                }
+            };
+    
+            fetchDeliveredOrders();
+        }, [shopName]);
+    
+
+    };
     
     // const handleCancel = async (orderId) => {
     //     try {
@@ -341,7 +359,7 @@ return (
             </div>
         </div>
 
-        {/* Report Section */}
+        {/* Report Section
         <div className="bg-gray-100 p-5 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Report for {shopName}</h2>
             <div className="overflow-x-auto">
@@ -370,7 +388,40 @@ return (
                     </tbody>
                 </table>
             </div>
+        </div> */}
+
+<div className="bg-gray-100 p-5 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Report for {shopName}</h2>
+            <div className="overflow-x-auto">
+                <table className="min-w-full border border-gray-300">
+                    <thead className="bg-gray-200">
+                        <tr>
+                            <th className="p-3 border">Order ID</th>
+                            <th className="p-3 border">UserID</th>
+                            <th className="p-3 border">Product Name</th>
+                            <th className="p-3 border">Quantity</th>
+                            <th className="p-3 border">Total Amount</th>
+                            <th className="p-3 border">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredOrders.map(order => (
+                            <tr key={order._id} className="text-center border-b">
+                                <td className="p-3 border">{order.orderId}</td>
+                                <td className="p-3 border">{order.userID || order.username}</td>
+                                <td className="p-3 border">{order.productName}</td>
+                                <td className="p-3 border">{order.quantity}</td>
+                                <td className="p-3 border">₹{order.totalAmount}</td>
+                                <td className="p-3 border">{new Date(order.timestamp).toLocaleString()}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+
+
     </div>
 );
 
