@@ -116,8 +116,9 @@ const Dashboard = () => {
                 </ul>
             </div>
 
-            <div className="space-x-10 mt-14">
-                <Link to="/cart">
+            {/* <div className="space-x-10 mt-14"> */}
+            <div className="grid">
+                <Link to="/cart" className="grid">
                     <button className="bg-indigo-700 text-white p-3 rounded">Go to Cart 🛒</button>
                 </Link>
 
